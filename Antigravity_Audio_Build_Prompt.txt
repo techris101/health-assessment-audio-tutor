@@ -1,0 +1,99 @@
+TASK: Turn the attached file Health_Assessment_Audio_Tutor_Script.md into 22 high-quality MP3 audio lessons.
+
+The script is final. Your job is production, not writing. Work autonomously. Only stop and ask me before anything that costs money or needs a payment method.
+
+------------------------------------------------------------
+1. ENGINE CHOICE (decide first, then tell me in one line)
+------------------------------------------------------------
+Pick the best-sounding text-to-speech engine you can run here without paid billing. Rank engines by these capabilities, in this order:
+  a) Accepts a natural-language style or delivery instruction.
+  b) Supports SSML, especially <break> and <phoneme> or <sub>.
+  c) Plain text only.
+Use ONE voice for all 22 parts. Choose a calm, mature, clear English voice. The script uses British spellings (oedema, haemoptysis), so a British or neutral English voice is preferred.
+Before running the full batch, tell me: the engine name, the voice name, and whether it has usage limits or quotas.
+
+------------------------------------------------------------
+2. PARSING RULES
+------------------------------------------------------------
+- Split the file at every heading line that starts with "## PART". That gives 22 parts.
+- Do NOT voice:
+  - the instruction block at the top;
+  - the line starting with "# HEALTH";
+  - any line starting with "#";
+  - any "---" separator.
+- Voice every paragraph under each heading exactly as written, in order, with nothing skipped. Do not summarize, rephrase, add intros or add outros.
+- The only permitted text change is a pronunciation fix from section 5. Apply it only to the text sent to the engine.
+
+------------------------------------------------------------
+3. DELIVERY
+------------------------------------------------------------
+If the engine accepts a style instruction, send this with every chunk:
+"Calm, confident senior clinical tutor teaching one student. Warm and direct, never sing-song or salesy. Slightly slower than conversation. Slow down on definitions, numbers and normal values. Keep lists brisk and rhythmic. Say sentences starting with 'Red flag' or 'Danger' slower, lower and serious. Keep recaps brisk and lifted."
+
+Pauses. Use SSML breaks if the engine supports them. Otherwise, generate audio per paragraph and join the clips with silence using ffmpeg or pydub.
+- Between paragraphs: 0.6 seconds.
+- After any paragraph starting with "Pause and answer": 3 seconds.
+- After each "Question N." paragraph in Part 22: 3 seconds.
+- Between a heading-level topic change and the next paragraph: 1 second.
+
+------------------------------------------------------------
+4. CHUNKING AND LENGTH
+------------------------------------------------------------
+- Parts 12 to 21 are long, and Part 21 is about 2,000 words. If the engine has an input limit, or quality drifts on long input, split the part at paragraph boundaries only. Keep chunks around 250 to 400 words.
+- Concatenate the chunks back into one file per part. The voice, volume and pace must sound continuous across joins. No clicks, no doubled or cut words.
+- Never split a sentence.
+
+------------------------------------------------------------
+5. PRONUNCIATION
+------------------------------------------------------------
+Test these words in a short sample first. Use SSML phoneme or sub if available. Otherwise replace the word with the respelling in the text sent to the engine only.
+  Cheyne-Stokes = chain stokes
+  Biot = bee-OH
+  Kussmaul = KOOS-mowl
+  Hering-Breuer = HAIR-ing BROY-er
+  borborygmi = bor-bor-IG-my
+  caput medusae = KAP-ut meh-DOO-see
+  Kayser-Fleischer = KY-zer FLY-sher
+  Peutz-Jeghers = POOTS JAY-gurz
+  Rovsing = ROV-sing
+  Buerger = BUR-ger
+  Peyronie = pay-roh-NEE
+  xanthelasma = zan-thuh-LAZ-muh
+  koilonychia = koy-loh-NIK-ee-uh
+  leukonychia = loo-koh-NIK-ee-uh
+  asterixis = as-ter-IK-sis
+  kwashiorkor = kwash-ee-OR-kor
+  condylomata acuminata = kon-dih-LOH-muh-tuh uh-kyoo-mih-NAH-tuh
+  haemoptysis = hee-MOP-tih-sis
+  dyspnoea = DISP-nee-uh
+  orthopnoea = or-THOP-nee-uh
+  oedema = ih-DEE-muh
+  pyrosis = pie-ROH-sis
+  eructation = ee-ruk-TAY-shun
+  hypospadias = hy-poh-SPAY-dee-us
+  Homans = HOH-muns
+  G-I = G I (two letters)
+  e-G-F-R = E G F R (four letters)
+If you hear any other clearly wrong pronunciation in the test, fix it the same way and list it in your final report.
+
+------------------------------------------------------------
+6. OUTPUT
+------------------------------------------------------------
+- Format: MP3, mono, 128 kbps or higher.
+- Loudness normalized to about -16 LUFS, so every part plays at the same volume.
+- File names: Part01_Welcome_Nursing_Process.mp3, Part02_..., through Part22_Fire_Round.mp3. Short title from each heading, underscores, no spaces.
+- Also produce one combined file, Health_Assessment_FULL.mp3, with 2 seconds of silence between parts.
+- Save everything in a folder named Health_Assessment_Audio.
+
+------------------------------------------------------------
+7. QUALITY CHECK (do this, do not skip)
+------------------------------------------------------------
+1. Produce Part 1 first. Check it against every rule above, then batch the rest.
+2. For every part, compare its duration with (word count / 150) minutes. Flag any part more than 25 percent off, because that means skipped or repeated text.
+3. If speech-to-text is available, transcribe each part and diff it against the script. Re-generate any chunk with missing, repeated or altered sentences.
+4. Confirm no part voiced a heading line, a "---" separator or the instruction block.
+
+------------------------------------------------------------
+8. FINAL REPORT (short)
+------------------------------------------------------------
+Engine and voice used. A table of the 22 files with durations. Total runtime. Any pronunciation fixes added. Any part that failed a check and what you did about it.

@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*$py.class
+Health_Assessment_Audio/
+tmp/
+.temp/
+*.log
